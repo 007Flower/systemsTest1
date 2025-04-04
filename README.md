@@ -12,3 +12,16 @@ Single Target scan
 
 Default scan
     go run main.go 
+
+Sample output
+
+Scanning port 1/61 for target scanme.nmap.org
+Scanning port 2/61 for target scanme.nmap.org
+...
+Scan Summary:
+Targets: scanme.nmap.org
+Total ports scanned: 61
+Open ports: 2
+Scan completed in: 1.532s
+Target scanme.nmap.org: Port 22 open
+Target scanme.nmap.org: Port 80 open, but no response received.
