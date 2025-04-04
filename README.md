@@ -1,5 +1,5 @@
 # systemsTest1
-
+youtube video=    https://youtu.be/39kPsX2pBBE
 This tool is a multi-threaded TCP port scanner written in Go. It allows users to scan a specified range of ports on one or multiple target hosts, identifying open ports and retrieving service banners if available. The scanner supports command-line flags for customization, including specifying target hosts, port ranges, concurrency level, timeout duration, and JSON-formatted output.
 
 how to run:
@@ -25,3 +25,4 @@ Open ports: 2
 Scan completed in: 1.532s
 Target scanme.nmap.org: Port 22 open
 Target scanme.nmap.org: Port 80 open, but no response received.
+
