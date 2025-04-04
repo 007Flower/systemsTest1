@@ -79,16 +79,18 @@ func worker(wg *sync.WaitGroup, tasks chan string, dialer net.Dialer, results ch
 }
 
 func main() {
-	// Parse command-line arguments to configure the scanner
+	// Parse command-line arguments
+	// -target: Specifies the target hosts/IPs to scan, separated by commas
 	targets := flag.String("target", "scanme.nmap.org", "Comma-separated list of target hosts or IP addresses")
-	// Defines the range of ports to scan
+	// -start-port: Defines the starting port for the scan
 	startPort := flag.Int("start-port", 0, "Start port for the scan")
+	// -end-port: Defines the ending port for the scan
 	endPort := flag.Int("end-port", 100, "End port for the scan")
-	// Determines the number of concurrent worker goroutines
+	// -workers: Determines the number of concurrent worker goroutines
 	workers := flag.Int("workers", 100, "Number of concurrent workers")
-	// Specifies the timeout duration for each connection attempt
-	timeout := flag.Int("timeout", 1, "Timeout for each connection in seconds")
-	// Outputs scan results in JSON format if enabled
+	// -timeout: Specifies the timeout in seconds for each connection attempt
+	timeout := flag.Int("timeout", 5, "Timeout for each connection in seconds")
+	// -json: If set, outputs scan results in JSON format
 	jsonOutput := flag.Bool("json", false, "Output results in JSON format")
 	flag.Parse()
 
@@ -165,5 +167,14 @@ func main() {
 		fmt.Printf("Total ports scanned: %d\n", totalPorts)
 		fmt.Printf("Open ports: %d\n", len(openPorts))
 		fmt.Printf("Scan completed in: %v\n", elapsedTime)
+
+		for _, result := range openPorts {
+			fmt.Printf("Target %s: Port %d open\n", result.Target, result.Port)
+			if result.Banner != "" && result.Banner != "No response" {
+				fmt.Printf("Banner: %s\n", result.Banner)
+			} else if result.Banner == "No response" {
+				fmt.Printf("Target %s: Port %d open, but no response received.\n", result.Target, result.Port)
+			}
+		}
 	}
 }
